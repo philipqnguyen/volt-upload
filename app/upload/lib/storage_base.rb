@@ -13,7 +13,7 @@ class StorageBase < Volt::Model
 	def self.get_default_container
 		@@default_container
 	end
-	
+
 	def self.default_container(container)
 		@@default_container = container
 	end
@@ -31,7 +31,7 @@ class StorageBase < Volt::Model
 		else
 			model = model.send(:"#{association}=", self.new)
 		end
-		
+
 		model.data = data
 
 		case container
@@ -54,9 +54,9 @@ class StorageBase < Volt::Model
 
 			model.format = data_format
 
-			Dir.mkdir("public") unless File.exists?("public")
+			Dir.mkdir("tmp") unless File.exists?("tmp")
 
-			File.open("public/#{model.id}.#{data_format}", "wb") do |f|
+			File.open("tmp/#{model.id}.#{data_format}", "wb") do |f|
 				f.truncate(0)
 				f.write Base64.decode64(data_file)
 			end
